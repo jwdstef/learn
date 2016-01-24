@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	
+	<persistence-unit name="learn-jpa" transaction-type="RESOURCE_LOCAL">
+		<!-- 
+		配置使用什么 ORM 产品来作为 JPA 的实现 
+		1. 实际上配置的是  javax.persistence.spi.PersistenceProvider 接口的实现类
+		2. 若 JPA 项目中只有一个 JPA 的实现产品, 则也可以不配置该节点. 
+		-->
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	
+		<!-- 实体类：简单API -->
+		<class>org.zgf.learn.jpa.entity.api.PersonEntity</class>
+		<!-- 实体类：二级缓存 -->
+		<class>org.zgf.learn.jpa.entity.cache2.StudentCacheEntity</class>
+		
+		<!-- 一对多 :one2many  -->
+		<class>org.zgf.learn.jpa.entity.orm.one2many.User</class>
+		<class>org.zgf.learn.jpa.entity.orm.one2many.Address</class>
+		<!-- 多对一: many2one  -->
+		<class>org.zgf.learn.jpa.entity.orm.many2one.Department</class>
+		<class>org.zgf.learn.jpa.entity.orm.many2one.Employee</class>
+		<!-- 双向一对多: one2many2one -->
+		<class>org.zgf.learn.jpa.entity.orm.one2many2one.Customer</class>
+		<class>org.zgf.learn.jpa.entity.orm.one2many2one.ProductOrder</class>
+		<!-- 多对多  -->
+		<class>org.zgf.learn.jpa.entity.orm.many2many.Category</class>
+		<class>org.zgf.learn.jpa.entity.orm.many2many.Item</class>
+		
+		
+		
+		<!-- 设置二级缓存模式
+			ALL：所有的实体类都被缓存
+			NONE：所有的实体类都不被缓存. 
+			ENABLE_SELECTIVE：标识 @Cacheable(true) 注解的实体类将被缓存
+			DISABLE_SELECTIVE：缓存除标识 @Cacheable(false) 以外的所有实体类
+			UNSPECIFIED：默认值，JPA 产品默认值将被使用
+		  -->
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		
+		<properties>
+			<!-- 连接数据库的基本信息 -->
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql:///learn"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="root"/>
+			
+			<!-- 配置 JPA 实现产品的基本属性. 配置 hibernate 的基本属性 -->
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+			
+			<!-- 配置二级缓存相关 -->
+			<!-- 配置是否启用二级缓存 -->
+			<property name="hibernate.cache.use_second_level_cache" value="true"/>
+			<!-- 配置二级缓存实现产品 -->
+			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
+			<!-- 配置查询是否使用二级缓存 -->
+			<property name="hibernate.cache.use_query_cache" value="true"/>
+		</properties>
+	</persistence-unit>
+</persistence>

@@ -1,4 +1,4 @@
-package org.zgf.learn.hibernate.validator;
+package org.zgf.learn.hibernate.validator.uti;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -42,7 +42,7 @@ public class BeanValidateUtil {
 	 * @param propertyName 属性名称
 	 * @return Set<ConstraintViolation<T>>
 	 */
-	public static <T> Set<ConstraintViolation<T>> validateProperty(T object, String propertyName){
+	public static <T> Set<ConstraintViolation<T>> validate(T object, String propertyName){
 		return validator.validateProperty(object, propertyName);
 	}
 	
@@ -53,7 +53,7 @@ public class BeanValidateUtil {
 	 * @param groups 分组列表
 	 * @return Set<ConstraintViolation<T>>
 	 */
-	public static <T> Set<ConstraintViolation<T>> validateProperty(T object, String propertyName, Class<?>... groups){
+	public static <T> Set<ConstraintViolation<T>> validate(T object, String propertyName, Class<?>... groups){
 		return validator.validateProperty(object, propertyName, groups);
 	}
 	
@@ -63,7 +63,7 @@ public class BeanValidateUtil {
 	 * @param propertyNames 属性数组
 	 * @return Set<ConstraintViolation<T>>
 	 */
-	public static <T> Set<ConstraintViolation<T>> validateProperties(T object, String... propertyNames){
+	public static <T> Set<ConstraintViolation<T>> validate(T object, String... propertyNames){
 		Set<ConstraintViolation<T>> resultSet = new LinkedHashSet<>();
 		
 		Set<ConstraintViolation<T>> propertySet;
@@ -81,7 +81,7 @@ public class BeanValidateUtil {
 	 * @param groups 分组列表
 	 * @return Set<ConstraintViolation<T>>
 	 */
-	public static <T> Set<ConstraintViolation<T>> validateProperties(T object, String[] propertyNames, Class<?>... groups){
+	public static <T> Set<ConstraintViolation<T>> validate(T object, String[] propertyNames, Class<?>... groups){
 		Set<ConstraintViolation<T>> resultSet = new LinkedHashSet<>();
 		
 		Set<ConstraintViolation<T>> propertySet;

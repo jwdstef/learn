@@ -1,7 +1,8 @@
-package org.zgf.learn.hibernate.validator;
+package org.zgf.learn.hibernate.validator.bean;
 
 import java.util.Date;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -19,8 +21,19 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
+import org.zgf.learn.hibernate.validator.customerize.infc.BiggerThan;
+import org.zgf.learn.hibernate.validator.groups.GroupAdd;
 
+/**
+ * 测试bean
+ * 
+ * @author zonggf
+ * @date 2016年1月24日-下午5:27:13
+ */
 public class BeanVO {
+
+	@Null(message = "BeanVO 必须为空", groups = { GroupAdd.class })
+	private String isNull;
 
 	@NotNull(message = "对象不能为空:可用于所有类型")
 	private String notNull;
@@ -52,6 +65,9 @@ public class BeanVO {
 	@Pattern(regexp = "^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$", message = "手机号格式不正确:正则表达式只能修饰字符串")
 	private String pattern_phoneno;
 
+	@Valid
+	private InnerBean innerBean = new InnerBean();
+
 	/********* hibernate validator 新增 ***************/
 
 	@NotEmpty(message = "字符串不能为空或空格：只能修饰字符串")
@@ -71,6 +87,10 @@ public class BeanVO {
 
 	@Range(min = 1, max = 3, message = "range:")
 	private String range_1_3;
+
+	/**************** 自定义注解 *************************/
+	@BiggerThan(value = 10, message = "必须比10 大")
+	private Integer biggerThan_10;
 
 	public BeanVO() {
 		super();
@@ -206,6 +226,30 @@ public class BeanVO {
 
 	public void setRange(String range_1_3) {
 		this.range_1_3 = range_1_3;
+	}
+
+	public String getIsNull() {
+		return isNull;
+	}
+
+	public void setIsNull(String isNull) {
+		this.isNull = isNull;
+	}
+
+	public Integer getBiggerThan_10() {
+		return biggerThan_10;
+	}
+
+	public void setBiggerThan_10(Integer biggerThan_10) {
+		this.biggerThan_10 = biggerThan_10;
+	}
+
+	public InnerBean getInnerBean() {
+		return innerBean;
+	}
+
+	public void setInnerBean(InnerBean innerBean) {
+		this.innerBean = innerBean;
 	}
 
 }

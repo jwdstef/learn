@@ -4,15 +4,22 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
+import org.zgf.learn.hibernate.validator.bean.BeanVO;
+import org.zgf.learn.hibernate.validator.uti.BeanValidateUtil;
+/**
+ * 测试基础类
+ * @author zonggf
+ * @date 2016年1月24日-下午5:27:38
+ */
 public class BaseTest {
 	protected BeanVO beanVO = new BeanVO();
 	protected String propertyName = null; 
 	
 	protected void validateProperty(){
-		Set<ConstraintViolation<BeanVO>> resultSet = BeanValidateUtil.validateProperty(beanVO, this.propertyName);
+		Set<ConstraintViolation<BeanVO>> resultSet = BeanValidateUtil.validate(beanVO, this.propertyName);
 		if(resultSet.size()>0){
 			System.out.println("\n---------------------  error  -------------------");
-			printValidateResult(BeanValidateUtil.validateProperty(beanVO, this.propertyName));
+			printValidateResult(BeanValidateUtil.validate(beanVO, this.propertyName));
 		}else{
 			System.out.println("\n---------------------- right  ------------------");
 		}

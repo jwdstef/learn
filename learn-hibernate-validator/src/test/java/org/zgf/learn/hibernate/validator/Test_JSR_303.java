@@ -2,8 +2,13 @@ package org.zgf.learn.hibernate.validator;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 
 import org.junit.Test;
+import org.zgf.learn.hibernate.validator.bean.InnerBean;
+import org.zgf.learn.hibernate.validator.uti.BeanValidateUtil;
 
 /**
  * JSR 常用注解
@@ -181,18 +186,35 @@ public class Test_JSR_303 extends BaseTest{
 		
 	};
 	
-	
-	
+
+	/** 测试验证传递性
+	 * 1. 属性必须用@Valid 注解修饰
+	 * 2. 只能通过验证对象的方式来验证，不能使用验证属性的方式来进行递归验证
+	 * 
+	 */
+	@Test
+	public void test_innerBean(){
+		this.propertyName = "innerBean";
+		System.out.println("name:" + beanVO.getInnerBean().getName());
+		this.validateProperty();
+	    Set<ConstraintViolation<InnerBean>> result = BeanValidateUtil.validate(this.beanVO.getInnerBean());
+	    for (ConstraintViolation<InnerBean> constraintViolation : result) {
+			System.out.println(constraintViolation);
+		}
+	}
+	/** 测试验证传递性
+	 * 
+	 */
+	@Test
+	public void test_innerBean_2(){
+		//此种验证属性的方式，不能进行递归验证
+		this.propertyName = "innerBean";
+		this.validateProperty();
+	}
 	private Date getPastDate(){
 		Calendar cal = Calendar.getInstance();
 		cal.set(2010, 10, 10);
 		return cal.getTime();
 	}
-	
-	
-	
-	
-	
-	
 
 }

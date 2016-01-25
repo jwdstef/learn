@@ -7,6 +7,7 @@
 	<packaging>pom</packaging>
 
 	<url>http://maven.apache.org</url>
+	
 
 	<!-- 模块儿管理   -->
 	<modules>
@@ -79,6 +80,7 @@
 		<apache.httpcore.version>4.4.4</apache.httpcore.version>
 		<apache.httpclient.version>4.5.1</apache.httpclient.version>
 		<log4j.version>1.2.17</log4j.version>
+		<aopalliance.version>1.0</aopalliance.version>
 	</properties>
 
 	<!-- jar 包管管理  -->
@@ -376,6 +378,13 @@
 				<artifactId>httpclient</artifactId>
 				<version>${apache.httpclient.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>aopalliance</groupId>
+				<artifactId>aopalliance</artifactId>
+				<version>${aopalliance.version}</version>
+			</dependency>
+			
 			
 			<!-- 单元测试   -->
 			<dependency>

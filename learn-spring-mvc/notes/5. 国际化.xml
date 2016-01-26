@@ -1,0 +1,12 @@
+<!-- 
+	国际化：
+		1. 在页面上能够根据浏览器语言设置的情况，对时间，数字，文本来进行本地化的设置
+		2. 可以在Bean 中获取国际化资源文件locale 对应的消息
+		3. 通过超链接切换Locale, 不再依赖于浏览器的设置情况
+	
+	解决方案： 
+		1. 使用jstl fmt 标签，可以解决
+		2. 在bean 中注入 ResourceBundleMessage 实例即可
+		3. 配置 localresovler localChangeInterceptor
+
+ -->

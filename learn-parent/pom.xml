@@ -7,9 +7,9 @@
 	<packaging>pom</packaging>
 
 	<url>http://maven.apache.org</url>
-	
 
-	<!-- 模块儿管理   -->
+
+	<!-- 模块儿管理 -->
 	<modules>
 		<module>../learn-activiti</module>
 		<module>../learn-cxf</module>
@@ -31,8 +31,8 @@
 	<properties>
 		<jdk.version>1.7</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	
-		<!-- jar 包版本  -->
+
+		<!-- jar 包版本 -->
 		<antlr.version>2.7.7</antlr.version>
 		<dom4j.version>1.6.1</dom4j.version>
 		<ehcache.core.version>2.6.11</ehcache.core.version>
@@ -79,11 +79,16 @@
 		<apache.logging.log4j.version>2.5</apache.logging.log4j.version>
 		<apache.httpcore.version>4.4.4</apache.httpcore.version>
 		<apache.httpclient.version>4.5.1</apache.httpclient.version>
+		<apache.commons.pool.version>2.4.2</apache.commons.pool.version>
 		<log4j.version>1.2.17</log4j.version>
 		<aopalliance.version>1.0</aopalliance.version>
+		<jackson.core.version>2.7.0</jackson.core.version>
+		<jackson.databind.version>2.7.0</jackson.databind.version>
+		<jackson.annotations.version>2.7.0</jackson.annotations.version>
+		<jedis.version>2.8.0</jedis.version>
 	</properties>
 
-	<!-- jar 包管管理  -->
+	<!-- jar 包管管理 -->
 	<dependencyManagement>
 		<dependencies>
 			<!-- hibernate needed jars -->
@@ -100,14 +105,14 @@
 				<version>${dom4j.version}</version>
 				<scope>compile</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>net.sf.ehcache</groupId>
 				<artifactId>ehcache-core</artifactId>
 				<version>${ehcache.core.version}</version>
 				<scope>compile</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
@@ -135,14 +140,14 @@
 				<version>${hibernate.jpa.version}</version>
 				<scope>compile</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.hibernate.common</groupId>
 				<artifactId>hibernate-commons-annotations</artifactId>
 				<version>${hibernate.commons.annotations.version}</version>
 				<scope>compile</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.javassist</groupId>
 				<artifactId>javassist</artifactId>
@@ -156,129 +161,129 @@
 				<version>${jboss.logging.version}</version>
 				<scope>compile</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.jboss.spec.javax.transaction</groupId>
 				<artifactId>jboss-transaction-api_1.1_spec</artifactId>
 				<version>${jboss.transaction.version}</version>
 				<scope>compile</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j.version}</version>
 				<scope>compile</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>${mysql.connector.version}</version>
 				<scope>compile</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>${hibernate.validator.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
 				<version>${validation.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.jboss.spec.javax.el</groupId>
 				<artifactId>jboss-el-api_3.0_spec</artifactId>
 				<version>${jboss.el.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.fasterxml</groupId>
 				<artifactId>classmate</artifactId>
 				<version>${classmate.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>${java.servlet.version}</version>
 			</dependency>
-			
+
 			<!-- spring 相关 -->
-			<!-- spring 核心包  -->
+			<!-- spring 核心包 -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
 				<version>${spring.core.version}</version>
 			</dependency>
-			
+
 			<!-- spring beans -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-beans</artifactId>
 				<version>${spring.beans.version}</version>
 			</dependency>
-			
+
 			<!-- spring 上下文 -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
 				<version>${spring.context.version}</version>
 			</dependency>
-			
+
 			<!-- spring 表达式 -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-expression</artifactId>
 				<version>${spring.expression.version}</version>
 			</dependency>
-			
+
 			<!-- spring 拦截器 -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aop</artifactId>
 				<version>${spring.aop.version}</version>
 			</dependency>
-			
-			<!-- spring 事务管理  -->
+
+			<!-- spring 事务管理 -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
 				<version>${spring.tx.version}</version>
 			</dependency>
-			
-			<!-- spring web  -->
+
+			<!-- spring web -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
 				<version>${spring.web.version}</version>
 			</dependency>
-			
+
 			<!-- spring MVC -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 				<version>${spring.mvc.version}</version>
 			</dependency>
-			
-			<!-- spring 单元测试  -->
+
+			<!-- spring 单元测试 -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-test</artifactId>
 				<version>${spring.test.version}</version>
 			</dependency>
-			
+
 			<!-- spring webservice -->
 			<dependency>
 				<groupId>org.springframework.ws</groupId>
 				<artifactId>spring-ws-core</artifactId>
 				<version>${spring.ws.core.version}</version>
 			</dependency>
-			
+
 			<!-- apache 相关jar -->
 			<!-- 操作excel world -->
 			<dependency>
@@ -286,107 +291,139 @@
 				<artifactId>poi</artifactId>
 				<version>${apache.poi.version}</version>
 			</dependency>
-			
+
 			<!-- 编码相关 -->
 			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>${apache.commons.codesc.version}</version>
 			</dependency>
-			
+
 			<!-- 集合相关 -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-collections4</artifactId>
 				<version>${apache.commons.collections4.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>${apache.commons.io.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
 				<version>${apache.commons.beanutils.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-compress</artifactId>
 				<version>${apache.commons.compress.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-math3</artifactId>
 				<version>${apache.commons.math3.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-collections</groupId>
 				<artifactId>commons-collections</artifactId>
 				<version>${apache.commons.collections.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-lang</groupId>
 				<artifactId>commons-lang</artifactId>
 				<version>${apache.commons.lang.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>${apache.commons.lang3.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-email</artifactId>
 				<version>${apache.commons.email.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
 				<version>${apache.commons.logging.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-pool2</artifactId>
+				<version>${apache.commons.pool.version}</version>
+			</dependency>
 			
+
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-core</artifactId>
 				<version>${apache.logging.log4j.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>${log4j.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpcore</artifactId>
 				<version>${apache.httpcore.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
 				<version>${apache.httpclient.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>aopalliance</groupId>
 				<artifactId>aopalliance</artifactId>
 				<version>${aopalliance.version}</version>
 			</dependency>
+
+			<!-- json 解析： jackson -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.core.version}</version>
+			</dependency>
 			
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.annotations.version}</version>
+			</dependency>
 			
-			<!-- 单元测试   -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.databind.version}</version>
+			</dependency>
+			
+			<!-- java redis 相关 -->
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
+
+			<!-- 单元测试 -->
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -401,18 +438,18 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
-	<build>  
-		<!-- 插件管理   -->
-	    <plugins>  
-	      <plugin>  
-	        <groupId>org.apache.maven.plugins</groupId>  
-	        <artifactId>maven-compiler-plugin</artifactId>  
-	        <configuration>  
-	          <source>${jdk.version}</source>  
-	          <target>${jdk.version}</target>  
-	        </configuration>  
-	      </plugin>  
-	    </plugins>  
-	</build>  
+
+	<build>
+		<!-- 插件管理 -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

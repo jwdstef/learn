@@ -1,0 +1,12 @@
+<!-- 
+	JSR303: @Valid 注解
+	
+	BindingResult 对象，必须和需要校验的bean成对出现，且变量之间不能有其它变量
+	
+	
+	格式化：
+	@DateFormate
+	@NumberFormate
+	
+
+ -->

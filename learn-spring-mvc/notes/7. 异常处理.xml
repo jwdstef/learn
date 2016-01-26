@@ -1,0 +1,25 @@
+<!-- 
+	HandlerExceprtionResolver
+	
+	1. Controller 级别的异常： @ExceptionHandler 注解
+		1. 入参中可以加入 Exception 类型的参数，该参数即发生异常的对象
+		2. 入参中不能传入map，若希望希望把异常信息传入到页面上，需要适用用ModleAndView 做为方法的返回值
+		3. 执行顺序：
+		
+	2. @ControllerAdvice + @ExceptionHandler
+		1. 如果在当前Controller 中找不到该方法产生的异常，则会向@ConrollerAdvice中查找异常
+			查找的都是 @ExceptionHandler 标记的方法
+			
+		@ResponseStatus: 返回的状态信息code
+	
+	3. DefaultHandelResolver:
+		对Spring MVC 特殊的异常进行处理
+	4.  
+	
+	* 自定义统一异常处理， 继承HandlerExceptionResolver 接口，实现方法resolveException， 然后mvc 配置文件中配置
+	  1. question ： 如果实现了多个异常解析类，配置了多个怎样处理
+	
+
+
+
+ -->

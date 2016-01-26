@@ -1,0 +1,7 @@
+<!-- 
+	Spring MVC 的json 处理：
+	
+	1. 添加三个jar 报： jackson-core， jackson-databind , jackson-annotations
+	2. 使用@RequestBody  和 @ResponseBody 注解
+	3. 使用@RestController 注解
+ -->

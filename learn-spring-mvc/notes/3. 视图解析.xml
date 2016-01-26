@@ -1,0 +1,38 @@
+ <!--  ModelAndView 精讲
+
+	1. 视图解析器：
+		1） InternalResolver: 专门解析jsp 和 视图转发功能，jsp解析器默认解析器order 为 最大
+		2） 自定义视图解析器
+		3） 视图解析器运行流程
+		
+	2. mvc 返回数据分析：ModelAndView
+		1) 无论返回为String 还是ModelAndView  , Spring 都会转换成ModelAndView 对象
+		2) 入参中有Map<String, Object> 类型参数,默认将map 中的所有参数全部放入request域对象中
+		3) 
+	
+
+	1. ModelAndView: 返回视图 view和 数据model
+		return new ModelAndView(view,object);
+		其中view  可以指定 redirect 等方式
+		底层代码是将数据model 中的数据放到 request 域对象中
+	2. 参数传入 Map<String,Object>类型, 也可以放到request 域对象中
+	3. 
+
+
+
+
+	
+	3. 视图解析器运行流程
+	
+	4. 默认转发为 forward, 可以添加 redirect: 来进行重定向
+	<mvc-view-controller> 
+		1. 不经过handler，直接跳转到视图，需要配置annotation-driven
+		2. 自动判断是否被映射，如果没有映射则会去寻找资源，如果没有报错会报 没有找到该映射的错误
+	<mvc-default-servlet-handler> 静态资源文件
+
+
+
+
+
+
+-->

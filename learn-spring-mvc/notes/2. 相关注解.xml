@@ -1,0 +1,51 @@
+<!--  Spring MVC 相关注解：
+	@Controller	表示该注解为接口
+	@RequestMapping： 通过属性来精确限制接口调用方式
+		value:	指定接口的相对路径， 路径支持ant 风格的路径：
+			？： 匹配一个字符，eg:/?abc
+			*： 匹配多个字符, eg:/*/abc
+			**： 匹配多层路径, eg:/**/abc
+		method: 指定请求的方式为 post、get、deleteA
+		headers: 指定请求头
+ -->	
+ <!-- 	
+	/*   方法参数相关注解  **/
+	@RequestParam: 获取指定请求参数值
+		value:参数名称
+		required: 是否是必须的，默认为true
+		defaultValue: 设置默认值
+	@RequestHeader: 获取请求头中的参数， 类似于@RequestParam ， 用的不多
+	@CookieValue: 获取cookie 值， 用法类似于@RequestParam
+
+
+	Resut 风格的注解
+	@PathVariable: 获取URL 中的占位符的值给接口的方法参数。 spring 3.0 新增
+		@RequestMapping(value="/*/{id})
+		public String test(@PathVariable(value="id") String id){};
+		
+		Rest风格：HiddenHttpMethodFilter:将普通http请求转换为标准的http请求。
+		以CRUD为例展示rest 风格URL
+		新增：/order		POST
+		修改：/order/1	PUT
+		获取：/order/2	GET
+		删除：/order/1	DELETE
+		
+		1. 配置 
+		2. 发送POST 请求
+		3. 发送POST 请求的时候，指定_method 请求参数：POST/PUT/GET/DELETE
+		4. 在Spring 接口方法中，通过@PathVariable 获取id值
+		
+	注意：如果方法中参数不适用 @RequestParam 等注解，spring mvc 会进行自动赋值：
+		1. 如果参数为简单类型，则自动赋值
+		2. 如果为pojo， 那么会进行属性赋值，支持级联属性
+		？：如果既有pojo，又有普通属性怎么处理？
+		
+	不常用注解：
+	@SessionAttributes： 作用在类上： 容易抛一个异常，有两种解决方案：一种就是添加 @ModelAttribute 修饰方法
+		values: 将request域中指定属性名的kew-value 放入session 域对象中
+		types:： 将request域中指定属性类型为key-value 放入session域对象中
+		
+	@ModelAttribute:标记的方法，会在每个目标方法执行之前，都在调用。
+		修饰入参： pojo
+	
+ -->

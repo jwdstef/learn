@@ -1,0 +1,228 @@
+<!-- 
+	redis
+	目录：
+	01. redis 简介&&安装 
+	02. redis 数据类型简介
+	03. redis 数据类型之String
+	04. redis 数据类型之Hash
+	05. redis 数据类型之List
+	06. redis 数据类型之Set
+	07. redis 数据类型之Zset
+	08. redis 常用命令
+	09. redis 高级：安全&&备份
+	10. redis 高级：事务&&发布订阅
+	11. redis 高级：持久化&&主从复制
+	12. redis 高级：Java客户端
+	
+	lesson 1 简介：
+	1. Nosql 简介
+		1. NoSQL（Not Only SQL） ，非关系数据库。传统的关系数据库在应付超大规模高并发的SNS有点儿力不从心。
+		2. NoSQL 是以Key-value 对形式存储的，不一定遵循传统数据库的基本要求。 NoSQL 数据库主要特点有：分布式、开源、水平可扩展。
+		3. NoSQL 可以处理超大量的数据， 性能高，可以运行在便宜的PC 电脑上。
+		4. 使用场景： 1. 对数据高并发读写	2. 对海量数据的高效率存储和访问	3. 对数据的高扩展性和高可用性	
+	2. redis 简介：	
+		1. redis 是一个开源的，先进的key-value 存储，通常被誉为数据结构服务器。
+		2. redis 支持各种不同方式的排序，为保证效率，数据都是在缓存中的，她也可用周期性地把更新的数据写入磁盘或者把修改操作写入追加的记录文件。
+		3. 目前全球最大的redis 用户是新浪微博， 在新浪微博有两种应用场景
+			1. 应用直接访问redis 集群
+			2. 应用场景直接访问redis集群， 当访问失败然后访问mysql集群
+		4. redis 使用场合：
+			1. 获取最新的N个数据的操作
+			2. 排行榜应用，取TopN 操作
+			3. 需要精确设定过期时间的应用
+			4. 计数器应用
+			5. Uniq 操作，获取某段时间的所有数据排重
+			6. 实时系统，反垃圾系统
+			7. pub/sub 构建及时消息系统
+			8. 构建队列系统
+			9. 缓存
+		5. redis 配置：	
+			#damonize 如果需要在后台运行，把该项设置为yes
+			#pidfile 配置多个pid 的地址， 默认在/var/run/redis.pid
+			#bind 绑定ip，设置后只接受来自该ip 的请求
+			#port 监听端口,默认为6379
+			#timeout 设置客户端连接视的超市时间，单位为秒
+			#loglever 日志级别，分为四级：debug、verbos、notice、waring
+			#logfile 配置log 文件地址
+			#databases 设置数据库的个数，默认使用的数据为0
+			#save 设置redis进行数据库镜像的频率
+			#rdbccompression 在进行镜像备份时，是否进行压缩
+			#Dbfilename 镜像备份文件的文件名
+			#Dir 数据库镜像备份的文件放置路径
+			#Slaveof 设置数据库为其他数据库的从数据库
+			#Masterauth 主数据库连接需要的密码验证
+			#Requirepadd 设置登录时需要使用的密码
+			#Maxclients 限制同时连接的客户数量
+			#Maxmemory 设置redis 能够使用的最大内存
+			#Appendonly 开始appen only 模式
+			#Appendfsync 设置对appendonly.aof 文件同步的频率
+			#vm-enabled 是否开启虚拟内存支持
+			#vm-swap-file 设置虚拟内存的交换文件路径
+			#vm-max-memory 设置redis 使用的最大的物理内存大小
+			#vm-page-size 设置虚拟内存的页大小
+			#vm-pages 设置交换文件的总的page 数量
+			#Glueoutputbuf 把小的输出缓存存放在一起
+			#hash-max-zipmap-entries 设置hash的临界值
+			#Activerehashing 重新刷新hash
+			
+			
+	Lesson 2 String
+		1. String 是线程安全的二进制对象，可以包含任何数据，可以存储图片 和 序列化对象
+		2. 常用命令：
+			-> set key value : 设置键值， 如果key 不存在则插入， 如果存在则更新
+			-> setnx key value: 设置键值，如果key 不存在则插入，如果已经存在，则不更新
+			-> set key time value : 设置键值，并指定有效期（time 为 秒）
+			-> setrange key index replaceStr: 从指定索引位置开始，替换字符串,相当于开启了insert模式，如果原字符串长，那么剩余的字符还在
+			-> mset key1 value1 key2 value2 ...: 批量设置key-value值
+			-> msetnx key1 value1 key2 value2 ...: 批量设置， 如果不存在插入，如果存在不更新。 全部成功，全部失败
+			-> get key : 获取指定键的值
+			-> getset key newvalue: 设置新值，获取原来的值
+			-> getrange beginIndex endIndex: 获取指定区间的字符串
+			-> mget key1 key2...： 批量获取返回值
+			-> incr key : 如果key 不存在，那么会新增key， value 默认为0； 如果存在则自增1
+			-> incrby key num: 如果key 不存在，那么会新增key，value默认为num; 如果存在则自增 num
+			-> decr key：自减
+			-> decrby key num：自减， num 可为负数
+			-> append key str : 给指定字符串追加字符
+			-> strlen key : 获取指定keyvalue 的长度
+			
+			
+	Lesson 2.2 hash
+		1. redis  的hash 是一个 String 类型的 filed value 映射表，它的添加和删除操作都是O(1)(平均)，特别适合存储对象。
+		   将一个对象存储在hash 上，会占用更少的内存，可以更方便地获取整个对象
+		2. 常用命令：
+			-> hset hsname filed value : 设置filed-value， 如果不存在则插入，如果存在则更新
+			-> hset hsname filed : 获取字段值
+			-> hsetnx hsname filed value: 设置filed-value， 如果不存在则 插入，如果存在则不更新
+			-> hmset hsname filed1 value1 filed2 value2 ..: 批量设置
+			-> hget hsname filed : 获取指定filed 值
+			-> hmget hsname filed1 filed2..： 批量获取filed 值
+			-> hincr by hsname filed: 对指定filed 自增
+			-> hexsists hsname filed : 判断字段是否存在
+			-> hlen hsname : 获取hash 中filed 的个数
+			-> hdel hsname field : 删除指定hash 的filed字段
+			-> hkeys hsname : 返回指定hash所有的filed 名称
+			-> hvals hsname : 返回指定hash 所有的value
+			-> hgetall hsname: 获取所有的filed 和 value
+			
+	Lesson 3 List
+		1. 是一个双向链表结构，可作为队列和栈来使用主要功能是pop push 功能
+		2. 常用命令： l 开头代表头部的命令， r开头表示从尾部执行的命令
+			-> lpush lsname vlue ：插入一个元素 
+			-> lrange lsname beginIndex endIndex: 遍历list , 如果beginIndex为0 ， endIndex为-1 表示遍历所有
+			-> rpush lsname value： 从尾部插入一个元素
+			-> linsert lsname before key1 value : 在指定key之前/后插入一个元素
+			-> lset lsname index value: 将指定下标的值替换掉
+			-> lrem lsname n key： 删除指定个数的value值，如果n<0 表示从尾部开始删除， n=0 表示全部删除 ？？
+			-> ltrim lsname beginIndex endIndex: 保存指定范围内的元素
+			-> lpop lsname : 从头部弹出一个元素
+			-> rpoplpush lsname1 lsname2 : 从lsname1 尾部中弹出一个值，并从lsname2 头部压入
+			-> lindex lsname key : 返回指定key 的索引值
+			-> len lsname : 返回链表中元素的个数
+			
+	Lesson 4 set 
+		1. Set 集合，String 类型的集合，查找，删除，添加的复杂度都是1.
+		2. 常用命令：
+			-> sadd setname value : 像集合中添加元素
+			-> smembers setname : 查看set 中所有元素
+			-> srem setname value: 从指定set 集合中删除一个元素
+			-> spop setname ： 从指定set 集合中随机弹出一个元素
+			-> sdiff setname1 setname2 : 获取集合1 和 集合2 的差集
+			-> sdiffstore newset setname1 setname2: 将集合1 和 集合2 的差集存储到newset 中
+			-> sinter setname1 setname2: 返回集合1 和集合2 的交集
+			-> sinterstore newset setname1 setname2 : 存储集合1 和集合2 的交集
+			-> sunion setname1 setname2 : 获取集合1 和集合2 的并集
+			-> sunionstore newset setname1 setname2 : 存储集合1 和结合2 的并集
+			-> smove setname1 setname2 value : 从集合1 中将value移动到集合2 中
+			-> scard setname1 : 获取集合中元素个数
+			-> sismember setname value : 判断value 是否是指定set 中的元素
+			-> srandmember setname : 随机返回集合中的一个元素，不删除
+	Lesson 4.2 zset 有序集合， 一列存值 一列存顺序
+			-> zadd zsetname index value : 向有序集合中指定索引位置插入元素， 如果已经存在会 更新顺序
+			-> zrange zsetname beginindex endindexx withscores : 遍历有序集合，包含顺序：从小到大排序(因为有序，所以可以用zrange 来遍历)
+			-> zrem zsetname index: 指定删除集合中的元素
+			-> zincrby zsetname indexValue value : 对顺序号增加
+			-> zrank zsetname value : 对顺序值进行排序，返回索引值，
+			-> zrevrank zsetname value: 
+			-> zrevrange zsetname beginindex endindex withscores: 逆向排序输出，从大到小排序
+			-> zrangebyscore zsetname beginindex endindex withscores: 指定范围内按score 排序
+			-> zcount zsetname beginindex endindex: 返回数量
+			-> zcard zsetname : 获取集合中所有元素个数
+			-> zremrangebyrank zsetname beginindex endindex whithscores: 
+			-> zremrangebyscore zsetname beginindex endindex withscores:
+			
+	Lesson 5： redis 常用命令
+		1. 键值相关命令：
+			-> keys * : 返回所有的键值
+			-> exsits key: 判断当前库中是否存在指定key
+			-> del key: 删除指定key
+			-> expire key time: 设置过期时间
+			-> ttl key : 查看键过期时间(单位为秒)
+			-> persist key： 取消定时过期， 返回-1 ，代表取消了过时
+			-> move key dbNo: 将当前库中的key-value 移动到 dbNo号数据库
+			-> randomkey: 随机返回数据库中的一个键
+			-> rename key keyNewName: 重命名key 的键名称
+			-> type key : 返回键的类型
+	
+		2. 服务器常用命令：
+			-> ping : 测试客户端与服务器连接是否正常
+			-> echo ：在命令行打印一些内容
+			-> select [0~15]: 切换数据库， redis 默认有0~15号 共16个库
+			-> quite/exit : 退出客户端连接
+			-> dbsize: 返回当前数据库中所有key 的数量
+			-> info: 获取服务器的一些信息
+			-> config get key: 返回配置的相关配置，可以使用config get * 返回所有的配置信息
+			-> flushdb :删除当前数据库中所有键
+			-> flushall: 删除所有数据库中的所有键
+			
+		3. 安全性：
+			1. 配置：requiredpass pwd
+			2. 授权
+				1. 登录成功后： autho pwd
+				2. 登录时添加选项：　*.exe -a pwd
+			注意：redis 1秒可以进行15万次密码尝试， 所以密码应该设置的非常强大才行
+		4. 主从复制：
+			1. redis 主从复制特点：
+				1. 1 台master 可以拥有多台 slave
+				2. slave 除了连接master 还可以连接salve
+				3. 主从复制不会阻塞master 执行client 请求。
+			2. 主从流程：
+			3. 配置：从服务器中配置： 
+			         #slaveof ip port
+					 #masterauth pwd (如果主服务器设置了密码)
+			4. 查看是否是主服务器 ，使用info 命令，看role 选项
+	
+	
+	Lesson 6
+	1. redis 事务： 目前只能保证同一个客户端之内的命令同时进行
+	   -> multi : 开启事务
+	   -> ...	： 命令会添加到执行队列中
+	   -> exec : 执行队列中的命令
+	   
+	   redis 事务，如果抛出异常，不会进行回滚
+	
+	2. discard: 事务回滚： 撤销执行队列中的名列，关闭事务
+	   
+	3. 乐观锁：类似于版本控制器， 数据表中增加 version字段， 每次更新的时候，version++ ， 在提交的时候比较version是否相同
+	   watch 实现
+	   
+	4. redis 持久化：
+		1. snappshotting: 数据快照，默认方式. 将内存中数据写成二进制文件，默认文件dump.rdb
+			修改配置： set 900 10: 设置900秒钟 有 10 个key 发生更新，然后进行快照保存
+			缺点： 有时间间隙，如果挂掉之后，会丢失最后一次快照之后的所有命令
+		2. AOF: append only file : 
+			将每一次的write命令都通过write函数追加到文件中， 当redis 重启时，会自动读取aof 文件， 在内存中重建数据库内容。
+		
+		配置：
+		1. 启用：appendonly yes
+		2. 同步方式：appendfsync always  : 每写一次，立刻写入文件
+					 appendfsync everysec:每秒执行一次
+					 appendfsync no：　默认方式
+					 
+	5. 发布&&订阅
+		1. suvscrib tv1 tv2: 监听 tv1 tv2 通道
+		2. publish tv1 message: 发布消息
+		   
+	
+	
+-->

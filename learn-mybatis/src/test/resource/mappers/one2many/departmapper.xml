@@ -13,11 +13,11 @@
 		<id property="id" column="id" javaType="Integer"/>
 		<result property="departname" column="departname" javaType="String"/>
 		<result property="departno" column="departno" javaType="Integer"/>
-		<collection property="employees" ofType="Emp" >
-			<id property="id" column="departId" javaType="Integer"/>
-			<result property="name" column="name" javaType="String"/>
-			<result property="age" column="age" javaType="Integer"/>
-			<result property="sex" column="sex" javaType="String"/>
+		<collection property="employees" ofType="org.zgf.learn.mybatis.entity.one2many.Emp">
+			<id property="id" column="departId"/>
+			<result property="name" column="name"/>
+			<result property="age" column="age"/>
+			<result property="sex" column="sex"/>
 		</collection>
 	</resultMap>
 	

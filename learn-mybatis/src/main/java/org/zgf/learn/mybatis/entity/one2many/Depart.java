@@ -1,6 +1,6 @@
 package org.zgf.learn.mybatis.entity.one2many;
 
-import java.util.Set;
+import java.util.List;
 
 public class Depart {
 
@@ -10,12 +10,12 @@ public class Depart {
 
 	private String departname;
 
-	private Set<Emp> employees;
+	private List<Emp> employees;
 
 	public Depart() {
 	}
 
-	public Depart(Integer departno, String departname, Set<Emp> employees) {
+	public Depart(Integer departno, String departname, List<Emp> employees) {
 		this.departno = departno;
 		this.departname = departname;
 		this.employees = employees;
@@ -45,17 +45,18 @@ public class Depart {
 		this.departname = departname;
 	}
 
-	public Set<Emp> getEmployees() {
+	public List<Emp> getEmployees() {
 		return employees;
 	}
 
-	public void setEmployees(Set<Emp> employees) {
+	public void setEmployees(List<Emp> employees) {
 		this.employees = employees;
 	}
 
 	@Override
 	public String toString() {
-		return "Department [departno=" + departno + ", departname=" + departname + ", employees=" + employees + "]";
+		return "Depart [id=" + id + ", departno=" + departno + ", departname=" + departname + ", employees=" + employees
+				+ "]";
 	}
 
 }

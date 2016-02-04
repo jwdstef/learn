@@ -32,10 +32,6 @@ public class Emp {
 		return name;
 	}
 
-	public void setNname(String name) {
-		this.name = name;
-	}
-
 	public Integer getAge() {
 		return age;
 	}
@@ -52,9 +48,14 @@ public class Emp {
 		this.sex = sex;
 	}
 
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", sex=" + sex + "]";
+	public void setName(String name) {
+		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Emp [id=" + id + ", name=" + name + ", age=" + age + ", sex=" + sex + "]";
+	}
+
+	
 }

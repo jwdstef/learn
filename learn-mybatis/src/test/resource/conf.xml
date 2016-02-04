@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 指定jdbc配置文件 -->
+	<properties resource="jdbc.properties"/>
+	
+	<!-- 为类指定别名，可指定整个包下所有的类，也可以指定具体的某个类 -->
+	<typeAliases>
+		<!-- 指定 org.zgf.learn.mybatis.entity 包 下的类，在mapper 的xml 文件中都是用简单类名 -->
+		<package name="org.zgf.learn.mybatis.entity"/>
+	</typeAliases>
+	
+	<!-- 开发环境： development: 开发环境  work: 生成环境 ， 可配置多个环境，启用哪个，更改default 的值即可-->
+	<environments default="development">
+		<environment id="development">
+			<!-- 事务方式 JDBC ，需要手动维护事务 的开启，提交，关闭-->
+			<transactionManager type="JDBC" />
+			
+			<!-- 数据源方式： POOLED 使用连接池，每次关闭不是真正的关闭，而是放回连接处； UNPOOLED:不适用连接池，每次关闭就是真正的关闭，性能较低，不推荐使用 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 指定映射文件位置   -->
+	<mappers>
+		<!--  <package name=""/>   package 是用于指定类所在的包-->
+		<mapper resource="mappers/personmapper.xml"/>
+		<mapper resource="mappers/usermapper.xml"/>
+		<mapper resource="mappers/cache/usercache2mapper.xml"/>
+		<mapper resource="mappers/one2one/passengerCardMapper.xml"/>
+		<mapper resource="mappers/one2one/passengerMapper.xml"/>
+		<mapper resource="mappers/one2many/departmapper.xml"/>
+		<mapper resource="mappers/one2many/empmapper.xml"/>
+	</mappers>
+</configuration>

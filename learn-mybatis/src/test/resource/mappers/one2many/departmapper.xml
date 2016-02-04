@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="org.zgf.learn.mybatis.entity.one2many.DepartMapper"> 
+
+	<!-- one2many: 一对多连接查询-->
+	<select id="getDepartById" parameterType="int" resultMap="_depart" >
+		select * 
+		from mybatis_one2many_depart d , mybatis_one2many_emp e
+		where d.id = e.departid and  d.id = #{id}
+	</select>
+	
+	<resultMap type="Depart" id="_depart">
+		<id property="id" column="id" javaType="Integer"/>
+		<result property="departname" column="departname" javaType="String"/>
+		<result property="departno" column="departno" javaType="Integer"/>
+		<collection property="employees" ofType="Emp" >
+			<id property="id" column="departId" javaType="Integer"/>
+			<result property="name" column="name" javaType="String"/>
+			<result property="age" column="age" javaType="Integer"/>
+			<result property="sex" column="sex" javaType="String"/>
+		</collection>
+	</resultMap>
+	
+	
+	<!-- one2many: 两次查询  -->
+	<select id="getDepartmentById" parameterType="int" resultMap="_department">
+		select *  from mybatis_one2many_depart where id = #{id}
+	</select>
+	
+	<resultMap type="Depart" id="_department">
+		<id property="id" column="id" javaType="Integer"/>
+		<result property="departname" column="departname" javaType="String"/>
+		<result property="departno" column="departno" javaType="Integer"/>
+		<collection property="employees" column="id" select="org.zgf.learn.mybatis.entity.one2many.EmpMapper.getEmpByDepartId" />
+	</resultMap>
+	
+</mapper>

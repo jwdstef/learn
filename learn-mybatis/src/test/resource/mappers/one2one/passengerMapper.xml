@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="org.zgf.learn.mybatis.entity.PassengerMapper"> 
+
+	<!-- one2one: 级联查询-->
+	<select id="getPassengerById" parameterType="int" resultMap="_passenger">
+		select * 
+		from mybatis_one2one_psg p, mybatis_one2one_psgcard c
+		where p.id = #{id} and p.psgcardid = c.id
+	</select>
+	
+	<!--  使用连接查询 -->
+	<resultMap type="Passenger" id="_passenger">
+		<id property="id" column="id" javaType="Integer"/>
+		<result property="name" column="name" javaType="String"/>
+		<result property="age" column="age" javaType="Integer"/>
+		<association property="passengerCard" javaType="PassengerCard"  >
+			<id property="id" column="id" javaType="Integer"/>
+			<result property="cardNo" column="cardNo" javaType="String" />
+		</association>
+	</resultMap>
+	
+	
+	<!-- one2one: 两次查询 -->
+	<select id="getPsgById" parameterType="int" resultMap="_psg">
+		select *  from mybatis_one2one_psg where id = #{id}
+	</select>
+	
+	<resultMap type="Passenger" id="_psg">
+		<id property="id" column="id" javaType="Integer"/>
+		<result property="name" column="name" javaType="String"/>
+		<result property="age" column="age" javaType="Integer"/>
+		<association property="passengerCard" javaType="PassengerCard" column="psgcardid" select="org.zgf.learn.mybatis.entity.PassengerCardMapper.getPassengerCardById"/>
+		<!-- 
+			property： 指明哪个属性为执行的一方
+			javaType: java 类型
+			select: 第二次查询执行的方法
+			column: 第二次查询的入参，也是外键
+		 -->
+	</resultMap>
+</mapper>

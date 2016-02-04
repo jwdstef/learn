@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="org.zgf.learn.mybatis.entity.one2many.EmpMapper"> 
+
+	<!-- 查： 从数据库中查询单个对象-->
+	<select id="getEmpByDepartId" parameterType="int" resultType="Emp" >
+		select * from mybatis_one2many_emp where departId = #{departId}
+	</select>
+	
+	
+</mapper>

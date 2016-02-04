@@ -50,7 +50,7 @@
 			<!-- 配置 JPA 实现产品的基本属性. 配置 hibernate 的基本属性 -->
 			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			<property name="hibernate.show_sql" value="true"/>
-			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.format_sql" value="false"/>
 			
 			<!-- 配置二级缓存相关 -->
 			<!-- 配置是否启用二级缓存 -->

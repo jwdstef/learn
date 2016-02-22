@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="org.zgf.learn.mybatis.entity.PassengerMapper"> 
 
-	<!-- one2one: 级联查询-->
+	<!-- one2one: 级联查询
+	注意：在进行表连接查询的时候，在使用* 号的时候有可能会结果集中字段重复，如出现两个id 列，此时，需要对至少一个id列进行命名处理-->
 	<select id="getPassengerById" parameterType="int" resultMap="_passenger">
-		select * 
+		select *, c.id as cid
 		from mybatis_one2one_psg p, mybatis_one2one_psgcard c
 		where p.id = #{id} and p.psgcardid = c.id
 	</select>
@@ -15,7 +16,7 @@
 		<result property="name" column="name" javaType="String"/>
 		<result property="age" column="age" javaType="Integer"/>
 		<association property="passengerCard" javaType="PassengerCard"  >
-			<id property="id" column="id" javaType="Integer"/>
+			<id property="id" column="cid" javaType="Integer"/><!-- 由于查询语句中对 c.id 进行了重命名处理，所以此处需要用cid -->
 			<result property="cardNo" column="cardNo" javaType="String" />
 		</association>
 	</resultMap>

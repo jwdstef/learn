@@ -30,12 +30,13 @@
 	<!-- 指定映射文件位置   -->
 	<mappers>
 		<!--  <package name=""/>   package 是用于指定类所在的包-->
-		<mapper resource="mappers/personmapper.xml"/>
-		<mapper resource="mappers/usermapper.xml"/>
+		<mapper resource="mappers/api/personmapper.xml"/>
+		<mapper resource="mappers/cache/usermapper.xml"/>
 		<mapper resource="mappers/cache/usercache2mapper.xml"/>
 		<mapper resource="mappers/one2one/passengerCardMapper.xml"/>
 		<mapper resource="mappers/one2one/passengerMapper.xml"/>
 		<mapper resource="mappers/one2many/departmapper.xml"/>
 		<mapper resource="mappers/one2many/empmapper.xml"/>
+		<mapper resource="mappers/advance/advancemapper.xml"/>
 	</mappers>
 </configuration>

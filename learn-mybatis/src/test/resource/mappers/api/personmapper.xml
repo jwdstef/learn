@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="org.zgf.learn.mybatis.entity.PersonMapper"> 
+
+	<!--*******************     基本标签 用法           *******************-->
+	<!-- 增：向数据库插入一条记录，并返回主键 -->
+	<insert id="addPerson" parameterType="Person" useGeneratedKeys="true" keyProperty="id" >
+		insert into mybatis_person(name, age, sex) values(#{name},#{age},#{sex})
+	</insert>
+	
+	<!-- 删：从数据库删除一条记录 -->
+	<delete id="deletePersonById" parameterType="int">
+		delete from mybatis_person where id = #{id}
+	</delete>
+	
+	<!-- 改：更新数据库的一条记录 -->
+	<update id="updatePerson" parameterType="Person" flushCache="true">
+		update mybatis_person set name = #{name}, age = #{age}, sex=#{sex} where id = #{id}
+	</update>
+
+	<!-- 自定义sql 片段 -->
+	<sql id="person_columns">id,name,age,sex</sql>
+	
+	<!-- 查： 从数据库中查询单个对象-->
+	<select id="getPersonById" parameterType="int" resultType="Person" >
+		select <include refid="person_columns"/> 
+		from mybatis_person where id = #{id}
+	</select>
+	
+	<!-- 查：从数据库查询多个对象 -->
+	<select id="getPersons" resultType="Person">
+		select * from mybatis_person
+	</select>
+	
+	
+	<!--*******************     动态sql 标签           *******************-->
+	<!--  mybatis 支持动态sql 语法
+		1. foreach: 遍历
+		2. if ： 判断语句
+		3. choose (when, otherwise)： 类似switch语句： choose == switch， when == case ， otherwise == default
+		4. trim, where, set: where 和  set 只是 trim 的特殊形式 
+	 -->
+	 
+	<!-- foreach 示例 -->
+	<insert id="addPersonList" parameterType="java.util.List" >
+		insert into mybatis_person(name, age, sex) values  
+		<foreach collection="list" item="person" separator="," >  
+		    (#{person.name},#{person.age},#{person.sex})
+		</foreach>  
+	</insert>  
+	
+	<select id="getInPersons" parameterType="java.util.List" resultType="Person">
+		select * from mybatis_person
+		where age in 
+		<foreach collection="list" item="age" open="(" separator="," close=")">
+			#{age}
+		</foreach>
+	</select>
+	
+	<!-- if 示例 -->
+	<!-- case1: 请求参数为简单类型 int， Integer 时，if 中需要用内置参数名:_parameter 来作为判断条件,但仅限于if 的test 中 -->
+	<select id="getPersonsByAge" parameterType="int" resultType="Person">
+		select * from mybatis_person
+		<if test="_parameter != null">
+			where age = #{age}
+		</if>
+	</select>
+	<!-- case2: 请求参数为JavaBean 或者 map 时，test 中直接写属性（支持级联属性，比如user.name） 或者 key 即可 -->
+	<select id="getPersonsByPersonAge" parameterType="Person" resultType="Person">
+		select * from mybatis_person
+		<if test="age != null">
+			where age = #{age}
+		</if>
+	</select>
+	
+	<!-- choose (when, otherwise)  -->
+	<!-- 注意：类似于if， 不同类型的parameterType， 影响test 中的变量名称  -->
+	<select id="getPersonsBySex" parameterType="String" resultType="Person">
+		select * from mybatis_person
+		<choose>
+			<when test="_parameter != null">
+				where sex = #{sex}
+			</when>
+			<otherwise>
+				where sex = 'man'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- where  等价于  <trim prefix="WHERE" prefixOverrides="AND |OR "></trim>
+		1. 自动添加where： 至少有一个if 为true， 则添加where
+		2. 自动删除多余的AND或者OR关键字： 如果where 后面紧跟AND 或者OR 则删除
+	-->
+	<select id="getPersonByMTAgeEQSex"  parameterType="Person" resultType="Person">
+		select * from mybatis_person
+		<where>
+			<if test="age != null">
+				age > #{age}
+			</if>
+			<if test="sex != null">
+				AND sex = #{sex}
+			</if>
+		</where>
+	</select>
+	
+	<!-- Set  等价于 <trim prefix="SET" suffixOverrides=","></trim>
+		1. 自动添加关键字Set
+		2. 自动删除多余的逗号
+		注意：  如果所有的if 都为false，那么进行更新的 时候可能会报错,因为执行的sql 将会 变成：update mybatis_person where id = ?
+	 -->
+	 <update id="updatePersonPropertyNotNull" parameterType="Person">
+	 	update mybatis_person 
+	 	<set>
+	 		<if test="name != null">
+	 			name = #{name},
+	 		</if>
+	 		<if test="age != null">
+	 			age = #{age},
+	 		</if>
+	 		<if test="sex != null">
+	 			sex = #{sex},
+	 		</if>
+	 	</set>
+	 	where id = #{id}
+	 </update>
+	 
+	 
+	 <!-- trim  sql 片段的构造，可自定义类似于SET， WHERE 之类的标签
+	 	  	prefix: 需要拼接的前缀
+	 	  	suffixOverrides：如果前缀以该符号开始，删除
+	 	  	suffix：需要拼接的后缀
+	 	  	prefixOverrides： 如果后缀以该符号结束，删除
+	  -->
+	  <update id="updatePersonPropertyNotNullByTrim" parameterType="Person">
+	 	update mybatis_person 
+	 	<trim prefix="SET" suffixOverrides=",">
+	 		<if test="name != null">
+	 			name = #{name},
+	 		</if>
+	 		<if test="age != null">
+	 			age = #{age},
+	 		</if>
+	 		<if test="sex != null">
+	 			sex = #{sex},
+	 		</if>
+	 	</trim>
+	 	where id = #{id}
+	 </update>
+	 
+</mapper>

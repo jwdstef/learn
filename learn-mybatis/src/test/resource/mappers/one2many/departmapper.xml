@@ -2,19 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="org.zgf.learn.mybatis.entity.one2many.DepartMapper"> 
 
-	<!-- one2many: 一对多连接查询-->
+	<!-- one2many: 一对多连接查询
+		注意：在进行表连接查询的时候，在使用* 号的时候有可能会结果集中字段重复，如出现两个id 列，此时，需要对至少一个id列进行命名处理
+	-->
 	<select id="getDepartById" parameterType="int" resultMap="_depart" >
-		select * 
-		from mybatis_one2many_depart d , mybatis_one2many_emp e
-		where d.id = e.departid and  d.id = #{id}
+		select *, e.id as eid
+		from mybatis_one2many_depart d, mybatis_one2many_emp e 
+		where  d.id = e.departid  and d.id = #{id}
 	</select>
 	
+	<!--
+		resultMap: type:该结果集类型，一般为自定义javaBean； id： 被引用的id
+		<id>: 指定主键列映射
+		<result>:指定非主键列映射
+		<collection>:指定集合类型映射,一对多关系
+	-->
 	<resultMap type="Depart" id="_depart">
 		<id property="id" column="id" javaType="Integer"/>
 		<result property="departname" column="departname" javaType="String"/>
 		<result property="departno" column="departno" javaType="Integer"/>
 		<collection property="employees" ofType="org.zgf.learn.mybatis.entity.one2many.Emp">
-			<id property="id" column="departId"/>
+			<id property="id" column="eid"/> <!-- 由于查询语句中对 e.id 进行了重命名处理，所以此处需要用eid -->
 			<result property="name" column="name"/>
 			<result property="age" column="age"/>
 			<result property="sex" column="sex"/>
@@ -31,6 +39,7 @@
 		<id property="id" column="id" javaType="Integer"/>
 		<result property="departname" column="departname" javaType="String"/>
 		<result property="departno" column="departno" javaType="Integer"/>
+		<!-- select：第二次查询的sql语句     column：第二次查询的入参取的字段值  property:第二次查询的结果放入哪个属性 -->
 		<collection property="employees" column="id" select="org.zgf.learn.mybatis.entity.one2many.EmpMapper.getEmpByDepartId" />
 	</resultMap>
 	

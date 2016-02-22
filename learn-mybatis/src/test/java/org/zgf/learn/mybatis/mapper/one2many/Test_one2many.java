@@ -7,7 +7,7 @@ import org.zgf.learn.mybatis.mapper.abase.BasicTest;
 public class Test_one2many extends BasicTest{
 	
 	/**
-	 * 表连接查询 TODO
+	 * 表连接查询 
 	 */
 	@Test
 	public void test_1(){

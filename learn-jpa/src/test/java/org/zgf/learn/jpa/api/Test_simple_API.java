@@ -33,7 +33,7 @@ public class Test_simple_API extends BasicJPATest {
 	/**
 	 * Test_API_persist:
 	 * 1. 类似于Hibernate 的save方法，将对象由临时状态 转化为 持久化状态
-	 * 2. 与Hibernate 区别：在之名id生成策略之后，如果要保存的对象有id值，那么将会抛出异常，不能进行保存；但是，Hibernate可以保存。
+	 * 2. 与Hibernate 区别：在指定id生成策略之后，如果要保存的对象有id值，那么将会抛出异常，不能进行保存；但是，Hibernate可以保存。
 	 */
 	@Test
 	public void testAPI_persist_noId(){
@@ -46,7 +46,7 @@ public class Test_simple_API extends BasicJPATest {
 	@Test(expected=javax.persistence.PersistenceException.class)
 	public void testAPI_persist_hasId(){
 		PersonEntity personEntity = getPersonEntity();
-		personEntity.setId(10000);
+		personEntity.setId(1424);
 		this.entityManager.persist(personEntity);
 	}
 	

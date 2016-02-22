@@ -6,15 +6,23 @@ public class Person {
 
 	private String name;
 
-	private int age;
+	private Integer age;
 
 	private String sex;
 
 	public Person() {
 		super();
 	}
+	
+	public Person(Integer id , String name, Integer age, String sex) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.sex = sex;
+	}
 
-	public Person(String name, int age, String sex) {
+	public Person(String name, Integer age, String sex) {
 		super();
 		this.name = name;
 		this.age = age;
@@ -37,11 +45,11 @@ public class Person {
 		this.name = name;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 

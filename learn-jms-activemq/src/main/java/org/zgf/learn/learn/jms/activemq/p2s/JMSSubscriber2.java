@@ -3,7 +3,6 @@ package org.zgf.learn.learn.jms.activemq.p2s;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
-import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
 
@@ -38,24 +37,6 @@ public class JMSSubscriber2 {
 		messageConsumer.setMessageListener(new JMSSubListener("订阅者二"));
 		
 		//不能关闭连接，关闭之后就不能接受到消息了
-	}
-	
-	private static void closeConn(Connection connection, Session session){
-		if(null != session){
-			try {
-				session.close();
-			} catch (JMSException e) {
-				e.printStackTrace();
-			}finally {
-				if(connection != null){
-					try {
-						connection.close();
-					} catch (JMSException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
 	}
 
 }

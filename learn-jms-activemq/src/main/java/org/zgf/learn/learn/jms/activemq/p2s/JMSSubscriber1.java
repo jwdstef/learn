@@ -3,7 +3,6 @@ package org.zgf.learn.learn.jms.activemq.p2s;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
-import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
 
@@ -13,7 +12,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 /**
  * JMS 生产者
  */
-public class JMSSubscriber {
+public class JMSSubscriber1 {
 	
 	//设置默认的用户名、密码、连接地址
 	private static final String USE = ActiveMQConnection.DEFAULT_USER;
@@ -39,23 +38,4 @@ public class JMSSubscriber {
 		
 		//不能关闭连接，关闭之后就不能接受到消息了
 	}
-	
-	private static void closeConn(Connection connection, Session session){
-		if(null != session){
-			try {
-				session.close();
-			} catch (JMSException e) {
-				e.printStackTrace();
-			}finally {
-				if(connection != null){
-					try {
-						connection.close();
-					} catch (JMSException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-
 }

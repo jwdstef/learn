@@ -25,7 +25,7 @@ public class JMSSubListener implements MessageListener{
 		//2. 获取接收到的消息内容
 		try {
 			String msgContent = textMessage.getText();
-			System.out.println("订阅者【" + this.subName + "】接受到的消息内容为:" + msgContent);
+			System.out.println("【" + this.subName + "】接受到的消息内容为:" + msgContent);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}

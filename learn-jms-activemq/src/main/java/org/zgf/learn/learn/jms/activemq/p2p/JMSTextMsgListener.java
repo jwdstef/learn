@@ -9,7 +9,14 @@ import javax.jms.TextMessage;
  *
  */
 public class JMSTextMsgListener implements MessageListener{
-
+	
+	//消费者名称
+	private final String customerName ;
+		
+	public JMSTextMsgListener(String customerName) {
+		this.customerName = customerName;
+	}
+	
 	@Override
 	public void onMessage(Message message) {
 		//1. 强制转换消息
@@ -18,7 +25,7 @@ public class JMSTextMsgListener implements MessageListener{
 		//2. 获取接收到的消息内容
 		try {
 			String msgContent = textMessage.getText();
-			System.out.println("接受到的消息内容为:" + msgContent);
+			System.out.println("【" + this.customerName + "】接受到的消息内容为:" + msgContent);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}

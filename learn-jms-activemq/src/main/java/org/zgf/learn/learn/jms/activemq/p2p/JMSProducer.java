@@ -45,7 +45,7 @@ public class JMSProducer {
 		//9. 提交事务
 		session.commit();
 		
-		System.out.println("消息发送成功");
+		System.out.println("【生成者】消息发送成功");
 		closeConn(connection,session);
 	}
 	

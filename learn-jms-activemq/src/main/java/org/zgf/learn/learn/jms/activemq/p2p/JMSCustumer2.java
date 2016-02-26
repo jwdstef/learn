@@ -3,7 +3,6 @@ package org.zgf.learn.learn.jms.activemq.p2p;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
-import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
 
@@ -11,9 +10,9 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
- * JMS 生产者
+ * JMS 消费者二
  */
-public class JMSCustumer {
+public class JMSCustumer2 {
 	
 	//设置默认的用户名、密码、连接地址
 	private static final String USE = ActiveMQConnection.DEFAULT_USER;
@@ -35,27 +34,10 @@ public class JMSCustumer {
 		//6. 创建JMS 消息消费者
 		MessageConsumer messageConsumer = session.createConsumer(destination);
 		//7. 为消费者设置监听器
-		messageConsumer.setMessageListener(new JMSTextMsgListener());
+		messageConsumer.setMessageListener(new JMSTextMsgListener("消费者二"));
 		
+		System.out.println("消费者二开始监听....");
 		//不能关闭连接，关闭之后就不能接受到消息了
-	}
-	
-	private static void closeConn(Connection connection, Session session){
-		if(null != session){
-			try {
-				session.close();
-			} catch (JMSException e) {
-				e.printStackTrace();
-			}finally {
-				if(connection != null){
-					try {
-						connection.close();
-					} catch (JMSException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
 	}
 
 }

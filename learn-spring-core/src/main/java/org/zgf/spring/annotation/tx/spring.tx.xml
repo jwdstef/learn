@@ -1,0 +1,19 @@
+<!--
+	1. @Transaction  修饰的方法有如下限制：
+		1. 必须应用于 接口定义, 类定义, 接口public 方法, 类的public 方法上, 建议定义在类的public 方法上。
+		2. spring 的事务分为基于接口创建还是基于类的代理创建, 默认是基于接口的事务。基于接口的事务，@Transaction 必须添加在有接口的方法上。
+		3.  @Transactional 的事务开启 ，或者是基于接口的 或者是基于类的代理被创建。所以在同一个类中一个方法调用另一个方法有事务的方法，事务是不会起作用的 
+		4. Spring使用声明式事务处理，默认情况下， 如果被注解的数据库操作方法中发生了unchecked异常，所有的数据库操作将rollback ；如果发生的异常是checked异常，默认情况下数 据库操作还是会提 交的。
+ @Transactional(propagation=Propagation.REQUIRED) //如果有事务,那么加入事务,没有的话新建一个(不写的情况下)
+    @Transactional(propagation=Propagation.NOT_SUPPORTED) //容器不为这个方法开启事务
+    @Transactional(propagation=Propagation.REQUIRES_NEW) //不管是否存在事务,都创建一个新的事务,原来的挂起,新的执行完毕,继续执行老的事务
+    @Transactional(propagation=Propagation.MANDATORY) //必须在一个已有的事务中执行,否则抛出异常
+    @Transactional(propagation=Propagation.NEVER) //必须在一个没有的事务中执行,否则抛出异常(与Propagation.MANDATORY相反)
+    @Transactional(propagation=Propagation.SUPPORTS) //如果其他bean调用这个方法,在其他bean中声明事务,那就用事务.如果其他bean没有声明事务,那就不用事务.
+    
+ 
+    @Transactional(propagation=Propagation.NESTED) 
+    @Transactional (propagation = Propagation.REQUIRED,readOnly=true) //readOnly=true只读,不能更新,删除 
+    @Transactional (propagation = Propagation.REQUIRED,timeout=30)//设置超时时间 
+    @Transactional (propagation = Propagation.REQUIRED,isolation=Isolation.DEFAULT)//设置数据库隔离级别
+-->

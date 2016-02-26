@@ -10,6 +10,5 @@ public interface ICalculator {
 	
 	public int dev(int a, int b);
 	
-	
 	public void cal(int a, int b);
 }

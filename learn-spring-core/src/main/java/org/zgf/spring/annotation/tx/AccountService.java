@@ -11,26 +11,6 @@ public class AccountService implements IAccountService{
 	@Autowired
 	private AccountDao accountDao;
 	
-	@Override
-	public void addAccount(Account account) {
-		accountDao.addAccount(account);
-	}
-
-	@Override
-	public Account getAccountById(int id) {
-		return accountDao.getAccountById(id);
-	}
-
-	@Override
-	public void subMoney(int id, int money) {
-		accountDao.subAccountMoney(id, money);
-	}
-
-	@Override
-	public void updateMoney(int id, int money) {
-		accountDao.updateMoney(id, money);
-	}
-	
 	@Transactional(propagation= Propagation.REQUIRES_NEW)
 	@Override
 	public void subMoney(int id1, int id2, int money) {
@@ -58,5 +38,58 @@ public class AccountService implements IAccountService{
 	}
 	
 	
+	@Override
+	public void subMoney(int id, int money) {
+		this.accountDao.subAccountMoney(id, money);
+		throw new AccountException("数据库异常，数据应该回滚...");
+	}
+	
+	@Transactional
+	@Override
+	public void subMoney2(int id, int money) throws Exception {
+		this.accountDao.subAccountMoney(id, money);
+		//throw new AccountException("数据库异常，数据应该回滚...");
+		throw new Exception("数据库异常，数据应该不回滚...");
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public void subMoney3(int id, int money) {
+		this.accountDao.subAccountMoney(id, money);
+	}
+	
+	@Transactional(timeout=3)
+	@Override
+	public void subMoney4(int id, int money) {
+		this.accountDao.subAccountMoney(id, money);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void subMoney5(int id, int money) {
+		this.doService51(id, money);
+	}
+	
+	@Transactional
+	public void doService51(int id, int money){
+		this.accountDao.subAccountMoney(id, money);
+		throw new AccountException("数据库异常，数据应该回滚...");
+	}
+	
+	
+	@Override
+	public void subMoney6(int id, int money) {
+		this.doService61(id, money);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public void doService61(int id, int money){
+		this.accountDao.subAccountMoney(id, money);
+		throw new AccountException("数据库异常，数据应该回滚...");
+	}
 	
 }

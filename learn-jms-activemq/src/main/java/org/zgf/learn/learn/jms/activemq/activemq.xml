@@ -1,0 +1,7 @@
+<!--
+	JMS 两种消息架构
+	1. 点对点 模式: 一条消息 只能被一个消费者消费。会被持久化
+	2. 发布/订阅模式: 一条消息能被多个消费者消费。
+		   其中在Publicher/Subscriber模式下又有Nondurable subscription(非持久化订阅)和durable subscription(持久化订阅)两种消息处理方式。
+
+-->

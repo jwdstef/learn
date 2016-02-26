@@ -2,12 +2,15 @@ package org.zgf.learn.jpa.entity.orm.one2many;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "jpa_o2m_user")
@@ -21,7 +24,7 @@ public class User {
 	//@JoinColumn 指定外键的相关信息
 	//外键设置为nullable = true, 那么在不设置级联删除的情况下，执行remove 语句，会报错，因为remove 方法会将外键更新为null
 	@JoinColumn(name = "userId",unique=false,nullable=false) 
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<Address> addresses;
 
 	public User() {

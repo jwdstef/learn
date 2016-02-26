@@ -45,6 +45,14 @@ public class Test_User extends BasicJPATest{
 	
 	
 	@Test
+	public void test_findByjpql(){
+		String jqpl = "select user from User user where user.id = 1";
+		User user = (User) this.entityManager.createQuery(jqpl).getSingleResult();
+		System.out.println("————————————————————————————————————————");
+		System.out.println(user.getAddresses().size());
+	}
+	
+	@Test
 	public void test_find(){
 		Integer userId = 1;
 		User user = this.entityManager.find(User.class, userId);

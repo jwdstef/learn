@@ -1,0 +1,65 @@
+<!-- 
+	learn order:
+	
+	-> spring-core
+	-> springmvc
+	-> mybatis
+	-> hibernate
+	-> hibernate-validator
+	-> jpa
+	-> springdata
+	-> springdata-mogo
+	-> springdata-redis
+	-> shiro
+	-> springws
+	-> cxf
+	-> quart
+	-> activiti
+	
+	
+	-> spring-mvc
+	-> spring-mybatis
+	-> spring-hibernate
+	-> spring-mvc-shiro
+	-> spring-jpa
+	-> spring-cxf
+	-> spring-quart
+	-> spring-activiti
+	
+	
+	learn-spring
+	learn-springmvc
+	learn-springdata
+	learn-springws
+	learn-springboot
+	learn-mybatis
+	learn-hibernate
+	learn-jpa
+	learn-monodb
+	learn-redis
+	learn-shiro
+	learn-activiti
+	learn-freemarker
+	learn-cxf
+	
+	***  持久层整合  ***
+	learn-spring-mvc
+	learn-spring-mybatis
+	learn-spring-hibernate
+	learn-spring-jpa
+	
+	learn-spring-mvc-mybatis
+	learn-spring-mvc-hibernate
+	learn-spring-mvc-jpa
+	
+	learn-spring-mvc-shiro
+	learn-spring-mvc-cxf
+	learn-spring-mvc-ws
+	learn-spring-mvc-mybatis-activiti
+	
+	*** 待定  ***
+	learn-spring-data-mysql
+	learn-spring-data-mongodb
+	learn-spring-data-redis
+
+ -->

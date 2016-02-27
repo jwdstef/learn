@@ -1,4 +1,4 @@
-package org.zgf.spring.dao;
+package org.zgf.spring.jdbc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zgf.spring.entity.User;
+import org.zgf.spring.jdbc.UserJTDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:org/zgf/spring/dao/applications-template.xml")
+@ContextConfiguration(locations="classpath:org/zgf/spring/jdbc/applications-jdbc.xml")
 public class Test_UserDao {
 	
 	@Autowired

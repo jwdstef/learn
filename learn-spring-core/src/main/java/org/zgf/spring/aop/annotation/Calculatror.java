@@ -1,4 +1,4 @@
-package org.zgf.spring.annotation.aop;
+package org.zgf.spring.aop.annotation;
 
 import org.springframework.stereotype.Component;
 

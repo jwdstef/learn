@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 1. Bean 的生命周期
+		init-method:指定Bean 的初始化方法，在构造方法和属性set方法调用之后调用
+		destroy-method： 指定Bean 的销毁方法，在容器关闭时调用
+	-->
+	<bean id="mouseBean" class="org.zgf.spring.ioc.beanpro.MouseBean"
+		init-method="initeBean" destroy-method="destoryBean">
+		<property name="brand" value="lenovo"/>
+		<property name="price" value="1000"/>
+	</bean>
+	
+	<!-- Bean 的作用域：scope：
+	 	 singleton：单例模式，只在容器初始化时创建实例，只创建一次
+	 	 prototype： 原型模式，容器初始化时，不创建实例，每次请求时都创建一个实例
+	 	 session：web应用中，一个回话创建一个实例
+	 	 request：web应用中，一个请求创建一个实例-->
+	<bean id="mouseBean1" class="org.zgf.spring.ioc.beanpro.MouseBean" scope="singleton">
+		<property name="brand" value="lenovo"/>
+		<property name="price" value="1000"/>
+	</bean>
+	
+	<bean id="mouseBean2" class="org.zgf.spring.ioc.beanpro.MouseBean" scope="prototype">
+		<property name="brand" value="lenovo"/>
+		<property name="price" value="1000"/>
+	</bean>
+	
+	<!-- 配置Bean 后置处理器  -->
+	<bean class="org.zgf.spring.ioc.beanpro.MyBeanProcessor"/>
+	
+</beans>

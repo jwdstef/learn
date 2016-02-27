@@ -1,4 +1,4 @@
-package org.zgf.spring.annotation.aop;
+package org.zgf.spring.aop.annotation;
 
 public interface ICalculator {
 	

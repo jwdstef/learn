@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+	
+	<!--1. 继承关系  
+		  parent： 指定要继承的Bean, 只继承定义的 属性，可以为抽象Bean 和  实例Bean
+		  abstract:如果指定为true， 那么该Bean则只能被继承，不会被实例化
+	-->
+	<bean id="logicMouseAB" abstract="true">
+		<property name="brand" value="logic"/>
+		<property name="price" value="1000"/>
+	</bean>
+	
+	<bean id="logicMouseBean" class="org.zgf.spring.ioc.beanpro.MouseBean" parent="logicMouseAB"/>
+	
+	<!--2. 依赖关系 
+	       通过depends-on 属性指定 实例化该bean 之前必须实例化的bean， 可以为多个，用逗号分开-->
+	<bean id="mouseBean1" class="org.zgf.spring.ioc.beanpro.MouseBean" parent="logicMouseAB" depends-on="computerBean"/>
+	<bean id="computerBean" class="org.zgf.spring.ioc.beanpro.ComputerBean" />
+	
+	<!-- 配置Bean 后置处理器，看日志打印顺序 -->
+	<bean class="org.zgf.spring.ioc.beanpro.MyBeanProcessor"/>
+	
+</beans>

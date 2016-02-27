@@ -1,4 +1,4 @@
-package org.zgf.spring.dao;
+package org.zgf.spring.jdbc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +23,13 @@ public class UserJTDao {
 	
 	private final String tableName = " spring_jdbc_user ";
 	
-	/**
-	 * 执行 insert , update , delete 语句
-	 */
+	/** 执行 insert , update , delete 语句   */
 	public void addUser(User user){
 		String  sql = "insert into " + tableName + " values(null,?,?,?)";
 		this.jdbcTemplate.update(sql, user.getUsername(),user.getPassword(),user.getAge());
 	}
 	
-	/***
-	 * 批量执行：insert, update, delete 语句
-	 */
+	/*** 批量执行：insert, update, delete 语句   */
 	public void addBatchUser(List<User> users){
 		String  sql = "insert into  " + tableName + "  values(null,?,?,?)";
 		List<Object[]> batchArgs = new ArrayList<Object[]>();
@@ -44,9 +40,7 @@ public class UserJTDao {
 		 this.jdbcTemplate.batchUpdate(sql, batchArgs);
 	}
 	
-	/**
-	 * 查询单个对象,进行结果集封装
-	 */
+	/** 查询单个对象,进行结果集封装  */
 	public User getUserById(Integer id){
 		String sql = "select * from " + tableName + " where id = ? ";
 		//结果集映射规则
@@ -54,9 +48,7 @@ public class UserJTDao {
 		return this.jdbcTemplate.queryForObject(sql, rowMapper, id);
 	}
 	
-	/**
-	 * 查询列表
-	 */
+	/**  查询列表   */
 	public List<User> getUsersByAge(int age){
 		String sql = "select * from " + tableName + " where age = ?" ;
 		//结果集映射方式
@@ -65,17 +57,13 @@ public class UserJTDao {
 		
 	}
 	
-	/**
-	 * 查询某一字段
-	 */
+	/**  查询某一字段   */
 	public String getUserName(int id){
 		String sql = "select username from " + tableName + " where id = ? ";
 		return this.jdbcTemplate.queryForObject(sql, String.class, id);
 	}
 	
-	/**
-	 * 查询某一字段数组
-	 */
+	/** 查询某一字段数组   */
 	public List<String> getUserNames(int age){
 		String sql = "select username from " + tableName + " where age = ?" ;
 		//结果集映射方式

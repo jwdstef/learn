@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 1. 类的全类名配置bean -->
+	<!-- id:Bean 对象在Spring 容器中的唯一标识    class：该对象所属类的全路径名    
+		 如下配置, ComputerBean 中必须有无参构造函数
+	-->
+	<bean id="computerBean" class="org.zgf.spring.ioc.bean.ComputerBean"></bean>
+	
+	<!-- 2. 静态工厂方法配置bean -->
+	<!-- 静态方法配置Bean
+		class： 静态工厂类的全路径名称
+		factory-method: 静态工厂中的创建该实例的方法
+		<constructor-arg>: 配置方法的参数
+	 -->
+	<bean id="computerStaticFactoryBean" class="org.zgf.spring.ioc.bean.ComputerStaticFactory" factory-method="createComputer">
+		<constructor-arg value="lenovo"/>
+		<constructor-arg value="Y470"/>
+	</bean>
+	
+	<!-- 3. 工厂方法配置 bean -->
+	<!-- 工厂方法配置Bean: 配置工厂 -->
+	<bean id="computerInstanceFactory" class="org.zgf.spring.ioc.bean.ComputerInstanceFactory"/>
+		
+	<!-- 工厂方法配置Bean: 配置Bean实例   factory-bean:指向配置的工厂bean id-->
+	<bean id="computerInstanceFactoryBean" factory-bean="computerInstanceFactory" factory-method="createComputer">
+		<constructor-arg value="lenovo"/>
+		<constructor-arg value="Y470"/>
+	</bean>
+	
+	<!-- 4. FactoryBean 方式配置Bean class：实现FactoryBean接口的工厂类-->
+	<bean id="computerFactoryBean" class="org.zgf.spring.ioc.bean.ComputerFactoryBean">
+		<constructor-arg value="lenovo"/>
+		<constructor-arg value="Y470"/>
+	</bean>
+	
+</beans>

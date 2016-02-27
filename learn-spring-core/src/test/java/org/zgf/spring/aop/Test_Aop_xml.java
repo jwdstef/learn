@@ -1,4 +1,4 @@
-package org.zgf.spring.annotation.aop;
+package org.zgf.spring.aop;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +9,7 @@ import org.zgf.spring.aop.annotation.ICalculator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath:org/zgf/spring/annotation/aop/applications-aop.xml")
-public class Test_01_xml {
+public class Test_Aop_xml {
 	
 	@Autowired
 	private ICalculator calculator;

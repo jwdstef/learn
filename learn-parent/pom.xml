@@ -95,6 +95,9 @@
 		<mybatis.version>3.3.0</mybatis.version>
 		<mybatis.spring.version>1.2.3</mybatis.spring.version>
 		<c3p0.version>0.9.1.2</c3p0.version>
+		<java.mail.version>1.5.5</java.mail.version>
+		<javax.activation>1.1.1</javax.activation>
+		<freemarker.version>2.3.23</freemarker.version>
 	</properties>
 
 	<!-- jar 包管管理 -->
@@ -504,6 +507,24 @@
 				<version>${apache.activemq.version}</version>
 			</dependency>
 			
+			<!-- java mail  支持 -->
+			<dependency>
+				<groupId>com.sun.mail</groupId>
+				<artifactId>javax.mail</artifactId>
+				<version>${java.mail.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.activation</groupId>
+				<artifactId>activation</artifactId>
+				<version>${javax.activation}</version>
+			</dependency>
+			
+			<!-- Freemarker  -->
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>${freemarker.version}</version>
+			</dependency>
 			
 		</dependencies>
 	</dependencyManagement>

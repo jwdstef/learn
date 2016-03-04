@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<!-- 父模块儿 -->
+	<parent>
+		<groupId>org.zgf.learn</groupId>
+		<artifactId>learn-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../learn-parent/pom.xml</relativePath>
+	</parent>
+	
+	<artifactId>learn-jfreechar</artifactId>
+	<packaging>war</packaging>
+	<name>learn-jfreechar Maven Webapp</name>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.9</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart-swt</artifactId>
+			<version>1.0.9</version>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jcommon</artifactId>
+			<version>1.0.16</version>
+		</dependency>
+		
+	</dependencies>
+	<build>
+		<finalName>learn-jfreechar</finalName>
+	</build>
+
+</project>
